@@ -1,0 +1,25 @@
+{
+	"basket": {
+		"owner": "user 1",
+		"products": [
+			{
+				"id": "#(uuid())",
+				"description": "this is product 1",
+				"details": {
+					"addedBy": "user 5",
+					"cost": "987",
+					"currency": "EURO"
+				}
+			},
+			{
+				"id": "#(uuid())",
+				"description": "this is product 2",
+				"details": {
+					"addedBy": "user 3",
+					"cost": "123",
+					"currency": "EURO"
+				}
+			}
+		]
+	}
+}
