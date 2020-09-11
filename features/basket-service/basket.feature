@@ -1,8 +1,8 @@
-@ignore
-Feature:
+Feature: stateful mock server
 
 Background:
 * def uuid = function(){ return java.util.UUID.randomUUID() + '' }
+* def products = {}
 
 Scenario: pathMatches('/v1/basket')
     * def responseStatus = 201
@@ -12,6 +12,27 @@ Scenario: pathMatches('/v1/basket/delay')
     * def responseDelay = 4000
     * def responseStatus = 201
     * def response = read('data/basket.json')
+
+Scenario: pathMatches('/v1/products') && methodIs('post')
+    * def product = request
+    * def id = product.id
+    * products[id] = product
+    * def response = product
+
+Scenario: pathMatches('/v1/products')
+    * def response = $products.*
+
+Scenario: pathMatches('/v1/products/{id}') && methodIs('get')
+    * def id = pathParams.id
+    * def response = products[id]
+
+Scenario: pathMatches('/v1/products/{id}') && methodIs('put')
+    * def product = request
+    * def id = pathParams.id
+    * products[id + ''] = product
+    * def response = product
+
+
 
 Scenario: pathMatches('/v1/cats')
     * def responseStatus = 201
